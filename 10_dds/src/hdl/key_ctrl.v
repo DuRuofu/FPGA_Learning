@@ -1,4 +1,3 @@
-
 module key_ctrl(
     input   wire            sys_clk,
     input   wire            sys_rst_n,

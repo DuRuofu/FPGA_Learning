@@ -1,3 +1,4 @@
 {
-    "digital-ide.dont-show-again.propose.issue": true
+    "digital-ide.dont-show-again.propose.issue": true,
+    "digital-ide.welcome.show": false
 }
