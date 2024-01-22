@@ -55,3 +55,9 @@ DDS 的基本结构主要由相位累加器、相位调制器、波形数据表 
 dds模块仿真波形;
 
 ![image-20240122113600481](attachments/image-20240122113600481.png)
+
+## 四、实际测试
+
+![7087cda108246553fa9dffc94b7de46](attachments/7087cda108246553fa9dffc94b7de46.jpg)
+
+![06f092d6a50ec19f70b7611290ae0cc](attachments/06f092d6a50ec19f70b7611290ae0cc.jpg)1
