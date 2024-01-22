@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Mon Jan 22 01:48:52 2024
+// Date        : Mon Jan 22 09:32:00 2024
 // Host        : LAPTOP-0I7S0H2D running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               d:/SoftwareData/Vivado/FPGA_Learning/10_dds/src/ip_repo/rom_16384x10b/rom_16384x10b_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top rom_16384x10b -prefix
+//               rom_16384x10b_ rom_16384x10b_stub.v
 // Design      : rom_16384x10b
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tfgg484-2

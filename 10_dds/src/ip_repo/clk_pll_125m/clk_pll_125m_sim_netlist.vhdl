@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Mon Jan 22 02:38:56 2024
+-- Date        : Mon Jan 22 10:59:12 2024
 -- Host        : LAPTOP-0I7S0H2D running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               d:/SoftwareData/Vivado/FPGA_Learning/10_dds/src/ip_repo/clk_pll_125m/clk_pll_125m_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top clk_pll_125m -prefix
+--               clk_pll_125m_ clk_pll_125m_sim_netlist.vhdl
 -- Design      : clk_pll_125m
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -19,8 +19,6 @@ entity clk_pll_125m_clk_pll_125m_clk_wiz is
     clk_out : out STD_LOGIC;
     clk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of clk_pll_125m_clk_pll_125m_clk_wiz : entity is "clk_pll_125m_clk_wiz";
 end clk_pll_125m_clk_pll_125m_clk_wiz;
 
 architecture STRUCTURE of clk_pll_125m_clk_pll_125m_clk_wiz is
@@ -38,13 +36,7 @@ architecture STRUCTURE of clk_pll_125m_clk_pll_125m_clk_wiz is
   signal NLW_plle2_adv_inst_DO_UNCONNECTED : STD_LOGIC_VECTOR ( 15 downto 0 );
   attribute BOX_TYPE : string;
   attribute BOX_TYPE of clkf_buf : label is "PRIMITIVE";
-  attribute BOX_TYPE of clkin1_ibufg : label is "PRIMITIVE";
-  attribute CAPACITANCE : string;
-  attribute CAPACITANCE of clkin1_ibufg : label is "DONT_CARE";
-  attribute IBUF_DELAY_VALUE : string;
-  attribute IBUF_DELAY_VALUE of clkin1_ibufg : label is "0";
-  attribute IFD_DELAY_VALUE : string;
-  attribute IFD_DELAY_VALUE of clkin1_ibufg : label is "AUTO";
+  attribute BOX_TYPE of clkin1_bufg : label is "PRIMITIVE";
   attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
   attribute BOX_TYPE of plle2_adv_inst : label is "PRIMITIVE";
 begin
@@ -53,11 +45,8 @@ clkf_buf: unisim.vcomponents.BUFG
       I => clkfbout_clk_pll_125m,
       O => clkfbout_buf_clk_pll_125m
     );
-clkin1_ibufg: unisim.vcomponents.IBUF
-    generic map(
-      IOSTANDARD => "DEFAULT"
-    )
-        port map (
+clkin1_bufg: unisim.vcomponents.BUFG
+     port map (
       I => clk_in,
       O => clk_in_clk_pll_125m
     );
@@ -91,7 +80,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
       CLKOUT5_DIVIDE => 1,
       CLKOUT5_DUTY_CYCLE => 0.500000,
       CLKOUT5_PHASE => 0.000000,
-      COMPENSATION => "ZHOLD",
+      COMPENSATION => "BUF_IN",
       DIVCLK_DIVIDE => 2,
       IS_CLKINSEL_INVERTED => '0',
       IS_PWRDWN_INVERTED => '0',

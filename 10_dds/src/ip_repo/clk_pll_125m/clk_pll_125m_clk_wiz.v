@@ -76,7 +76,7 @@ module clk_pll_125m_clk_wiz
   //------------------------------------
 wire clk_in_clk_pll_125m;
 wire clk_in2_clk_pll_125m;
-  IBUF clkin1_ibufg
+  BUFG clkin1_bufg
    (.O (clk_in_clk_pll_125m),
     .I (clk_in));
 

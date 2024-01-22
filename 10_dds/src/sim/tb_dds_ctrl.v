@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns
+`timescale 1ns / 1ps
 
 module tb_dds_ctrl();
 
@@ -18,15 +18,16 @@ initial begin
     sys_rst_n <= 1'b1;
     #10000;
     wave_sel <= 4'b0001;
-    #80000;
+    #8000000;
     wave_sel <= 4'b0010;
-    #80000;
+    #8000000;
     wave_sel <= 4'b0100;
-    #80000;
+    #8000000;
     wave_sel <= 4'b1000;
-    #80000;
+    #8000000;
     wave_sel <= 4'b0001;
 
+    $stop;
 end
 
 // 产生时钟(50MHz)

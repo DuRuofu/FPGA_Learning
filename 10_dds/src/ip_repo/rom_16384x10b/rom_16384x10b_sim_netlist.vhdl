@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Mon Jan 22 01:48:52 2024
+-- Date        : Mon Jan 22 09:32:00 2024
 -- Host        : LAPTOP-0I7S0H2D running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               d:/SoftwareData/Vivado/FPGA_Learning/10_dds/src/ip_repo/rom_16384x10b/rom_16384x10b_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top rom_16384x10b -prefix
+--               rom_16384x10b_ rom_16384x10b_sim_netlist.vhdl
 -- Design      : rom_16384x10b
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -19,8 +19,6 @@ entity rom_16384x10b_bindec is
     ena_array : out STD_LOGIC_VECTOR ( 1 downto 0 );
     addra : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_bindec : entity is "bindec";
 end rom_16384x10b_bindec;
 
 architecture STRUCTURE of rom_16384x10b_bindec is
@@ -62,13 +60,10 @@ entity rom_16384x10b_blk_mem_gen_mux is
     \douta[8]_0\ : in STD_LOGIC_VECTOR ( 7 downto 0 );
     \douta[8]_1\ : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_mux : entity is "blk_mem_gen_mux";
 end rom_16384x10b_blk_mem_gen_mux;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_mux is
   signal sel_pipe : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal sel_pipe_d1 : STD_LOGIC_VECTOR ( 1 downto 0 );
 begin
 \douta[1]_INST_0\: unisim.vcomponents.LUT6
     generic map(
@@ -78,8 +73,8 @@ begin
       I0 => DOADO(0),
       I1 => \douta[8]\(0),
       I2 => \douta[8]_0\(0),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(0),
       O => douta(0)
     );
@@ -91,8 +86,8 @@ begin
       I0 => DOADO(1),
       I1 => \douta[8]\(1),
       I2 => \douta[8]_0\(1),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(1),
       O => douta(1)
     );
@@ -104,8 +99,8 @@ begin
       I0 => DOADO(2),
       I1 => \douta[8]\(2),
       I2 => \douta[8]_0\(2),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(2),
       O => douta(2)
     );
@@ -117,8 +112,8 @@ begin
       I0 => DOADO(3),
       I1 => \douta[8]\(3),
       I2 => \douta[8]_0\(3),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(3),
       O => douta(3)
     );
@@ -130,8 +125,8 @@ begin
       I0 => DOADO(4),
       I1 => \douta[8]\(4),
       I2 => \douta[8]_0\(4),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(4),
       O => douta(4)
     );
@@ -143,8 +138,8 @@ begin
       I0 => DOADO(5),
       I1 => \douta[8]\(5),
       I2 => \douta[8]_0\(5),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(5),
       O => douta(5)
     );
@@ -156,8 +151,8 @@ begin
       I0 => DOADO(6),
       I1 => \douta[8]\(6),
       I2 => \douta[8]_0\(6),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(6),
       O => douta(6)
     );
@@ -169,8 +164,8 @@ begin
       I0 => DOADO(7),
       I1 => \douta[8]\(7),
       I2 => \douta[8]_0\(7),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[8]_1\(7),
       O => douta(7)
     );
@@ -182,32 +177,10 @@ begin
       I0 => DOPADOP(0),
       I1 => \douta[9]\(0),
       I2 => \douta[9]_0\(0),
-      I3 => sel_pipe_d1(1),
-      I4 => sel_pipe_d1(0),
+      I3 => sel_pipe(1),
+      I4 => sel_pipe(0),
       I5 => \douta[9]_1\(0),
       O => douta(8)
-    );
-\no_softecc_norm_sel2.has_mem_regs.WITHOUT_ECC_PIPE.ce_pri.sel_pipe_d1_reg[0]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => clka,
-      CE => '1',
-      D => sel_pipe(0),
-      Q => sel_pipe_d1(0),
-      R => '0'
-    );
-\no_softecc_norm_sel2.has_mem_regs.WITHOUT_ECC_PIPE.ce_pri.sel_pipe_d1_reg[1]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => clka,
-      CE => '1',
-      D => sel_pipe(1),
-      Q => sel_pipe_d1(1),
-      R => '0'
     );
 \no_softecc_sel_reg.ce_pri.sel_pipe_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -242,8 +215,6 @@ entity rom_16384x10b_blk_mem_gen_prim_wrapper_init is
     clka : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_prim_wrapper_init : entity is "blk_mem_gen_prim_wrapper_init";
 end rom_16384x10b_blk_mem_gen_prim_wrapper_init;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_prim_wrapper_init is
@@ -256,7 +227,7 @@ architecture STRUCTURE of rom_16384x10b_blk_mem_gen_prim_wrapper_init is
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM18.ram\: unisim.vcomponents.RAMB18E1
     generic map(
-      DOA_REG => 1,
+      DOA_REG => 0,
       DOB_REG => 0,
       INITP_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INITP_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -372,7 +343,7 @@ begin
       DOPBDOP(1 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM18.ram_DOPBDOP_UNCONNECTED\(1 downto 0),
       ENARDEN => '1',
       ENBWREN => '0',
-      REGCEAREGCE => '1',
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
@@ -414,7 +385,7 @@ architecture STRUCTURE of \rom_16384x10b_blk_mem_gen_prim_wrapper_init__paramete
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
+      DOA_REG => 0,
       DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
@@ -618,7 +589,7 @@ begin
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED\(8 downto 0),
-      REGCEAREGCE => '1',
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
@@ -661,7 +632,7 @@ architecture STRUCTURE of \rom_16384x10b_blk_mem_gen_prim_wrapper_init__paramete
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
+      DOA_REG => 0,
       DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
@@ -865,7 +836,7 @@ begin
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED\(8 downto 0),
-      REGCEAREGCE => '1',
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
@@ -917,7 +888,7 @@ architecture STRUCTURE of \rom_16384x10b_blk_mem_gen_prim_wrapper_init__paramete
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
+      DOA_REG => 0,
       DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
@@ -1121,7 +1092,7 @@ begin
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED\(8 downto 0),
-      REGCEAREGCE => '1',
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
@@ -1173,7 +1144,7 @@ architecture STRUCTURE of \rom_16384x10b_blk_mem_gen_prim_wrapper_init__paramete
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram\: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
+      DOA_REG => 0,
       DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
@@ -1377,7 +1348,7 @@ begin
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED\(8 downto 0),
-      REGCEAREGCE => '1',
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
@@ -1398,8 +1369,6 @@ entity rom_16384x10b_blk_mem_gen_prim_width is
     clka : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_prim_width : entity is "blk_mem_gen_prim_width";
 end rom_16384x10b_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_prim_width is
@@ -1525,8 +1494,6 @@ entity rom_16384x10b_blk_mem_gen_generic_cstr is
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 );
     clka : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_generic_cstr : entity is "blk_mem_gen_generic_cstr";
 end rom_16384x10b_blk_mem_gen_generic_cstr;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_generic_cstr is
@@ -1691,8 +1658,6 @@ entity rom_16384x10b_blk_mem_gen_top is
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 );
     clka : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_top : entity is "blk_mem_gen_top";
 end rom_16384x10b_blk_mem_gen_top;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_top is
@@ -1714,8 +1679,6 @@ entity rom_16384x10b_blk_mem_gen_v8_4_2_synth is
     addra : in STD_LOGIC_VECTOR ( 13 downto 0 );
     clka : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_v8_4_2_synth : entity is "blk_mem_gen_v8_4_2_synth";
 end rom_16384x10b_blk_mem_gen_v8_4_2_synth;
 
 architecture STRUCTURE of rom_16384x10b_blk_mem_gen_v8_4_2_synth is
@@ -1856,7 +1819,7 @@ entity rom_16384x10b_blk_mem_gen_v8_4_2 is
   attribute C_HAS_INJECTERR : integer;
   attribute C_HAS_INJECTERR of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_A : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_A of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_A of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_B : integer;
   attribute C_HAS_MEM_OUTPUT_REGS_B of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_A : integer;
@@ -1947,8 +1910,6 @@ entity rom_16384x10b_blk_mem_gen_v8_4_2 is
   attribute C_WRITE_WIDTH_B of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is 10;
   attribute C_XDEVICEFAMILY : string;
   attribute C_XDEVICEFAMILY of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is "artix7";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is "blk_mem_gen_v8_4_2";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of rom_16384x10b_blk_mem_gen_v8_4_2 : entity is "yes";
 end rom_16384x10b_blk_mem_gen_v8_4_2;
@@ -2139,7 +2100,7 @@ architecture STRUCTURE of rom_16384x10b is
   attribute C_HAS_INJECTERR : integer;
   attribute C_HAS_INJECTERR of U0 : label is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_A : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_A of U0 : label is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_A of U0 : label is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_B : integer;
   attribute C_HAS_MEM_OUTPUT_REGS_B of U0 : label is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_A : integer;

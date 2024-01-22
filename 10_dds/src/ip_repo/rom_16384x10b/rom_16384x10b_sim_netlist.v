@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Mon Jan 22 01:48:52 2024
+// Date        : Mon Jan 22 09:32:00 2024
 // Host        : LAPTOP-0I7S0H2D running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               d:/SoftwareData/Vivado/FPGA_Learning/10_dds/src/ip_repo/rom_16384x10b/rom_16384x10b_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top rom_16384x10b -prefix
+//               rom_16384x10b_ rom_16384x10b_sim_netlist.v
 // Design      : rom_16384x10b
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -75,7 +75,7 @@ module rom_16384x10b
   (* C_HAS_ENA = "0" *) 
   (* C_HAS_ENB = "0" *) 
   (* C_HAS_INJECTERR = "0" *) 
-  (* C_HAS_MEM_OUTPUT_REGS_A = "1" *) 
+  (* C_HAS_MEM_OUTPUT_REGS_A = "0" *) 
   (* C_HAS_MEM_OUTPUT_REGS_B = "0" *) 
   (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) 
   (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
@@ -188,7 +188,6 @@ module rom_16384x10b
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "bindec" *) 
 module rom_16384x10b_bindec
    (ena_array,
     addra);
@@ -212,7 +211,6 @@ module rom_16384x10b_bindec
         .O(ena_array[1]));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module rom_16384x10b_blk_mem_gen_generic_cstr
    (douta,
     addra,
@@ -305,7 +303,6 @@ module rom_16384x10b_blk_mem_gen_generic_cstr
         .ena_array(ena_array[3]));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_mux" *) 
 module rom_16384x10b_blk_mem_gen_mux
    (douta,
     addra,
@@ -342,7 +339,6 @@ module rom_16384x10b_blk_mem_gen_mux
   wire [0:0]\douta[9]_0 ;
   wire [0:0]\douta[9]_1 ;
   wire [1:0]sel_pipe;
-  wire [1:0]sel_pipe_d1;
 
   LUT6 #(
     .INIT(64'hCCFFAAF0CC00AAF0)) 
@@ -350,8 +346,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[0]),
         .I1(\douta[8] [0]),
         .I2(\douta[8]_0 [0]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [0]),
         .O(douta[0]));
   LUT6 #(
@@ -360,8 +356,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[1]),
         .I1(\douta[8] [1]),
         .I2(\douta[8]_0 [1]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [1]),
         .O(douta[1]));
   LUT6 #(
@@ -370,8 +366,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[2]),
         .I1(\douta[8] [2]),
         .I2(\douta[8]_0 [2]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [2]),
         .O(douta[2]));
   LUT6 #(
@@ -380,8 +376,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[3]),
         .I1(\douta[8] [3]),
         .I2(\douta[8]_0 [3]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [3]),
         .O(douta[3]));
   LUT6 #(
@@ -390,8 +386,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[4]),
         .I1(\douta[8] [4]),
         .I2(\douta[8]_0 [4]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [4]),
         .O(douta[4]));
   LUT6 #(
@@ -400,8 +396,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[5]),
         .I1(\douta[8] [5]),
         .I2(\douta[8]_0 [5]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [5]),
         .O(douta[5]));
   LUT6 #(
@@ -410,8 +406,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[6]),
         .I1(\douta[8] [6]),
         .I2(\douta[8]_0 [6]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [6]),
         .O(douta[6]));
   LUT6 #(
@@ -420,8 +416,8 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOADO[7]),
         .I1(\douta[8] [7]),
         .I2(\douta[8]_0 [7]),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[8]_1 [7]),
         .O(douta[7]));
   LUT6 #(
@@ -430,26 +426,10 @@ module rom_16384x10b_blk_mem_gen_mux
        (.I0(DOPADOP),
         .I1(\douta[9] ),
         .I2(\douta[9]_0 ),
-        .I3(sel_pipe_d1[1]),
-        .I4(sel_pipe_d1[0]),
+        .I3(sel_pipe[1]),
+        .I4(sel_pipe[0]),
         .I5(\douta[9]_1 ),
         .O(douta[8]));
-  FDRE #(
-    .INIT(1'b0)) 
-    \no_softecc_norm_sel2.has_mem_regs.WITHOUT_ECC_PIPE.ce_pri.sel_pipe_d1_reg[0] 
-       (.C(clka),
-        .CE(1'b1),
-        .D(sel_pipe[0]),
-        .Q(sel_pipe_d1[0]),
-        .R(1'b0));
-  FDRE #(
-    .INIT(1'b0)) 
-    \no_softecc_norm_sel2.has_mem_regs.WITHOUT_ECC_PIPE.ce_pri.sel_pipe_d1_reg[1] 
-       (.C(clka),
-        .CE(1'b1),
-        .D(sel_pipe[1]),
-        .Q(sel_pipe_d1[1]),
-        .R(1'b0));
   FDRE #(
     .INIT(1'b0)) 
     \no_softecc_sel_reg.ce_pri.sel_pipe_reg[0] 
@@ -468,7 +448,6 @@ module rom_16384x10b_blk_mem_gen_mux
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module rom_16384x10b_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -587,7 +566,6 @@ module rom_16384x10b_blk_mem_gen_prim_width__parameterized3
         .ena_array(ena_array));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module rom_16384x10b_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -606,7 +584,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init
 
   (* box_type = "PRIMITIVE" *) 
   RAMB18E1 #(
-    .DOA_REG(1),
+    .DOA_REG(0),
     .DOB_REG(0),
     .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -720,7 +698,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init
         .DOPBDOP(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM18.ram_DOPBDOP_UNCONNECTED [1:0]),
         .ENARDEN(1'b1),
         .ENBWREN(1'b0),
-        .REGCEAREGCE(1'b1),
+        .REGCEAREGCE(1'b0),
         .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
@@ -761,7 +739,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized0
 
   (* box_type = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(1),
+    .DOA_REG(0),
     .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
@@ -960,7 +938,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized0
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b1),
+        .REGCEAREGCE(1'b0),
         .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
@@ -1000,7 +978,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized1
 
   (* box_type = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(1),
+    .DOA_REG(0),
     .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
@@ -1199,7 +1177,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized1
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b1),
+        .REGCEAREGCE(1'b0),
         .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
@@ -1245,7 +1223,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized2
 
   (* box_type = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(1),
+    .DOA_REG(0),
     .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
@@ -1444,7 +1422,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized2
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b1),
+        .REGCEAREGCE(1'b0),
         .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
@@ -1492,7 +1470,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized3
 
   (* box_type = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(1),
+    .DOA_REG(0),
     .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
@@ -1691,7 +1669,7 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized3
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b1),
+        .REGCEAREGCE(1'b0),
         .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
@@ -1702,7 +1680,6 @@ module rom_16384x10b_blk_mem_gen_prim_wrapper_init__parameterized3
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module rom_16384x10b_blk_mem_gen_top
    (douta,
     addra,
@@ -1730,7 +1707,7 @@ endmodule
 (* C_EN_RDADDRA_CHG = "0" *) (* C_EN_RDADDRB_CHG = "0" *) (* C_EN_SAFETY_CKT = "0" *) 
 (* C_EN_SHUTDOWN_PIN = "0" *) (* C_EN_SLEEP_PIN = "0" *) (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     3.510199 mW" *) 
 (* C_FAMILY = "artix7" *) (* C_HAS_AXI_ID = "0" *) (* C_HAS_ENA = "0" *) 
-(* C_HAS_ENB = "0" *) (* C_HAS_INJECTERR = "0" *) (* C_HAS_MEM_OUTPUT_REGS_A = "1" *) 
+(* C_HAS_ENB = "0" *) (* C_HAS_INJECTERR = "0" *) (* C_HAS_MEM_OUTPUT_REGS_A = "0" *) 
 (* C_HAS_MEM_OUTPUT_REGS_B = "0" *) (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
 (* C_HAS_REGCEA = "0" *) (* C_HAS_REGCEB = "0" *) (* C_HAS_RSTA = "0" *) 
 (* C_HAS_RSTB = "0" *) (* C_HAS_SOFTECC_INPUT_REGS_A = "0" *) (* C_HAS_SOFTECC_OUTPUT_REGS_B = "0" *) 
@@ -1746,7 +1723,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "16384" *) 
 (* C_WRITE_DEPTH_B = "16384" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
 (* C_WRITE_WIDTH_A = "10" *) (* C_WRITE_WIDTH_B = "10" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_2" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module rom_16384x10b_blk_mem_gen_v8_4_2
    (clka,
     rsta,
@@ -1960,7 +1937,6 @@ module rom_16384x10b_blk_mem_gen_v8_4_2
         .douta(douta));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_2_synth" *) 
 module rom_16384x10b_blk_mem_gen_v8_4_2_synth
    (douta,
     addra,
