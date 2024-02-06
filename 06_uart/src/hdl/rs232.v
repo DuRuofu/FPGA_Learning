@@ -9,14 +9,14 @@ module rs232(
 );
 
 
+parameter UART_BSP = 115200 ; // 波特率
 wire [7:0] po_data;
 wire po_flag;
-
 
 // 实例化UART接收模块
 uart_rx
 #(
-    .UART_BSP(9600),   // 波特率
+    .UART_BSP(UART_BSP),   // 波特率
     .CLK_FREQ(50_000_000)   // 时钟频率
 )
 uart_rx_inst
@@ -31,7 +31,7 @@ uart_rx_inst
 // 实例化UART发送模块
 uart_tx
 #(
-    .UART_BSP(9600),   // 波特率
+    .UART_BSP(UART_BSP),   // 波特率
     .CLK_FREQ(50_000_000)   // 时钟频率
 )
 uart_tx_inst
