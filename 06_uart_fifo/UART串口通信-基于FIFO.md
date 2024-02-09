@@ -2,15 +2,20 @@
 ### 说明：
 
 1. 本文档由DuRuofu撰写，由DuRuofu负责解释及执行。
-2. 本文记录使用FPGA实现简单RS232串口
-
+2. 本文记录使用FPGA实现简单UART串口通信-基于FIFO
 ### 修订历史：
 
-|  文档名称  |  版本  |  作者  |      时间      |   备注   |
-| ---- | ---- | ------------ | ------ |
-| FPGA实现串口RS232 |v1.0.0| DuRuofu | 2024-01-23 | 首次建立 |
+| 文档名称 | 版本 | 作者 | 时间 | 备注 |
+| ---- | ---- | ---- | ---- | ---- |
+| UART串口通信-基于FIFO | v1.0.0 | DuRuofu | 2024-01-23 | 首次建立 |
 
-# FPGA实现串口RS232
+# UART串口通信-基于FIFO
+
+> 代码：https://github.com/DuRuofu/FPGA_Learning/tree/master/06_uart_fifo
+
+## 目标
+
+
 
 ## 一、整体框图
 
@@ -18,8 +23,10 @@
 
 
 ![](attachments/顶层框图.svg)
-发送接收模块:
-![](attachments/发送接收模块.svg)
+
+
+子模块模块:
+![](attachments/子模块.svg)
 整体框图:
 
 ![](attachments/整体框图.svg)
@@ -665,3 +672,8 @@ endmodule
 ![](attachments/Pasted%20image%2020240205222148.png)
 
 # 参考链接
+
+1. https://search.bilibili.com/all?vt=76757802&keyword=%E6%AD%A3%E7%82%B9%E5%8E%9F%E5%AD%90fpga&from_source=webtop_search&spm_id_from=333.1007&search_source=5
+2. https://www.bilibili.com/video/BV1y34y147s5/?spm_id_from=333.337.top_right_bar_window_history.content.click&vd_source=ef5a0ab0106372751602034cdd9ab98e
+3. https://blog.csdn.net/wanerXR/article/details/125120315
+4. https://www.cnblogs.com/lzbmeee/p/17624957.html
