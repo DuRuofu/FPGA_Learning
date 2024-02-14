@@ -27,11 +27,14 @@
 
 子模块模块:
 ![](attachments/子模块.svg)
+
 整体框图:
 
 ![](attachments/整体框图.svg)
 
 ## 二、模块波形图
+
+> 以9600波特率为例。
 
 接收模块:
 ![](attachments/串口模块波形图(rx).svg)
@@ -537,13 +540,138 @@ endmodule
 
 ```
 
+### 3.3 串口接收缓冲
+
+``` verilog
+`timescale 1ns / 1ns
+
+// 串口输入 + 缓冲
+module uart_fifo_rx
+#(
+    parameter UART_BSP = 'd9600,        // 波特率
+    parameter CLK_FREQ = 'd50_000_000   // 时钟频率
+)
+(
+    input wire sys_clk,
+    input wire sys_rst_n,
+    input wire rx,         // 串口接收数据
+    input wire rd_en,      // 串口输入缓冲区读取数据使能
+
+    output wire [7:0] data_out, // 串口输入缓冲区输出数据
+    output wire empty      // 串口输入缓冲区空标志
+    //output wire full        // 串口输入缓冲区满标志
+);
+
+wire [7:0] data_in;
+wire data_in_flag;
+
+// 实例化UART接收模块
+uart_rx
+#(
+    .UART_BSP(UART_BSP),   // 波特率
+    .CLK_FREQ(CLK_FREQ)   // 时钟频率
+)
+uart_rx
+(
+    .sys_clk            (sys_clk),        // 系统时钟
+    .sys_rst_n          (sys_rst_n),      // 系统复位信号
+    .rx                 (rx),             // 串口接收数据
+
+    .po_data            (data_in),  // 模块输出数据
+    .po_flag            (data_in_flag)   // 串口接收数据完成标志
+);
+
+
+// 实例化FIFO
+dcfifo_uart_1024x8 dcfifo_uart_1024x8_rx (
+  .rst(~sys_rst_n),        // input wire rst
+  .wr_clk(sys_clk),  // input wire wr_clk
+  .rd_clk(sys_clk),  // input wire rd_clk
+  .din(data_in),        // input wire [7 : 0] din
+  .wr_en(data_in_flag),    // input wire wr_en
+  .rd_en(rd_en),    // input wire rd_en
+
+  .dout(data_out),      // output wire [7 : 0] dout
+  .full(),      // output wire full
+  .empty(empty)    // output wire empty
+);
+
+endmodule
+
+
+```
+
+### 3.3 串口发送缓冲
+
+```   verilog
+`timescale 1ns / 1ns
+
+// 串口输出 + 缓冲
+
+module uart_fifo_tx
+#(
+    parameter UART_BSP = 'd9600,        // 波特率
+    parameter CLK_FREQ = 'd50_000_000   // 时钟频率
+)
+(
+    input wire sys_clk,
+    input wire sys_rst_n,
+    input wire [7:0] data_in, // 串口输出缓冲区输入数据
+    input wire wr_en,          // 串口输出缓冲区输入数据标志(写入使能)
+
+    //output wire empty,          // 串口输出缓冲区空标志
+    //output wire full,            // 串口输出缓冲区满标志
+    output wire tx              // 串口发送数据
+);
+
+wire [7:0] data_out;  // 串口输出数据
+wire rd_en;
+wire empty;
+
+// 缓冲区非空就使能缓冲区数据读出,并且和串口发送模块的写入使能相连
+assign rd_en =!empty;
+
+// 实例化UART发送模块
+uart_tx
+#(
+    .UART_BSP(UART_BSP),   // 波特率
+    .CLK_FREQ(CLK_FREQ)   // 时钟频率
+)
+uart_tx
+(
+    .sys_clk            (sys_clk),        
+    .sys_rst_n          (sys_rst_n),      
+    .pi_data            (data_out),  
+    .pi_flag            (wr_en),
+
+    .tx                 (tx)
+);
+
+// 实例化UART发送缓冲
+dcfifo_uart_1024x8 dcfifo_uart_1024x8_tx (
+  .rst(~sys_rst_n),        // input wire rst
+  .wr_clk(sys_clk),  // input wire wr_clk
+  .rd_clk(sys_clk),  // input wire rd_clk
+  .din(data_in),        // input wire [7 : 0] din
+  .wr_en(wr_en),    // input wire wr_en
+  .rd_en(rd_en),    // input wire rd_en
+
+  .dout(data_out),      // output wire [7 : 0] dout
+  .full(),      // output wire full
+  .empty(empty)    // output wire empty
+);
+
+endmodule
+
+```
+
 ### 3.3 串口顶层模块
 
 模块代码：
 ``` verilog
 `timescale 1ns / 1ns
 
-module rs232(
+module uart_fifo_demo(
     input wire sys_clk,
     input wire sys_rst_n,
     input wire rx,
@@ -551,41 +679,61 @@ module rs232(
     output wire tx
 );
 
+parameter UART_BSP = 115200 ; // 波特率
+parameter SYS_CLK_FREQ = 50_000_000 ; // 系统时钟频率
 
-wire [7:0] po_data;
-wire po_flag;
+wire [7:0] data;
+
+wire rx_empty;
+wire rx_rd_en;  
+wire tx_wr_en;
+
+// 接收缓冲区读取使能
+assign rx_rd_en = !rx_empty;
+
+// 发送缓冲区写入使能
+assign tx_wr_en = !rx_empty;
+
 
 
 // 实例化UART接收模块
-uart_rx
+uart_fifo_rx
 #(
-    .UART_BSP(9600),   // 波特率
-    .CLK_FREQ(50_000_000)   // 时钟频率
+    .UART_BSP(UART_BSP),        // 波特率
+    .CLK_FREQ(SYS_CLK_FREQ)   // 时钟频率
 )
-uart_rx_inst
+uart_fifo_rx
 (
-    .sys_clk            (sys_clk),        // 系统时钟
-    .sys_rst_n          (sys_rst_n),      // 系统复位信号
-    .rx                 (rx),             // 串口接收数据
+    .sys_clk(sys_clk),
+    .sys_rst_n(sys_rst_n),
+    .rx(rx),         // 串口接收数据
+    .rd_en(rx_rd_en),      // 串口输入缓冲区读取数据使能
 
-    .po_data            (po_data),  // 模块输出数据
-    .po_flag            (po_flag)   // 串口接收数据完成标志
+    .data_out(data), // 串口输入缓冲区输出数据
+    .empty(rx_empty)   // 串口输入缓冲区空标志
+    //.full()        // 串口输入缓冲区满标志
 );
+
+
 // 实例化UART发送模块
-uart_tx
+uart_fifo_tx
 #(
-    .UART_BSP(9600),   // 波特率
-    .CLK_FREQ(50_000_000)   // 时钟频率
+    .UART_BSP(UART_BSP),        // 波特率
+    .CLK_FREQ(SYS_CLK_FREQ)   // 时钟频率
 )
-uart_tx_inst
+uart_fifo_tx
 (
-    .sys_clk            (sys_clk),        
-    .sys_rst_n          (sys_rst_n),      
-    .pi_data            (po_data),  
-    .pi_flag            (po_flag),
+    .sys_clk(sys_clk),
+    .sys_rst_n(sys_rst_n),
+    .data_in(data),         // 串口输出缓冲区输入数据
+    .wr_en(tx_wr_en),           // 串口输出缓冲区输入数据标志(写入使能)
 
-    .tx                 (tx)
+    //.empty(),           // 串口输出缓冲区空标志
+    //.full(),            // 串口输出缓冲区满标志
+    .tx(tx)               // 串口发送数据
 );
+
+
 
 endmodule
 
@@ -594,7 +742,9 @@ endmodule
 ``` verilog
 `timescale 1ns / 1ns
 
-module tb_rs232();
+// 串口模块测试，模拟串口数据发送，波特率9600
+
+module tb_uart_fifo_demo();
 
 reg sys_clk;
 reg sys_rst_n;
@@ -651,7 +801,7 @@ endtask
 
 
 // 实例化串口模块
-rs232 rs232(
+uart_fifo_demo uart_fifo_demo(
     .sys_clk(sys_clk),
     .sys_rst_n(sys_rst_n),
     .rx(rx),
@@ -659,17 +809,21 @@ rs232 rs232(
     .tx(tx)
 );
 
+// 重定义参数,定义串口波特率为9600
+defparam uart_fifo_demo.UART_BSP = 9600;
+
 endmodule
+
 
 ```
 
-仿真效果：
-![](attachments/Pasted%20image%2020240205214955.png)
+仿真效果(顶层模块)：
+![](attachments/Pasted%20image%2020240214221416.png)
 
 
 ### 四、实际测试效果
 
-![](attachments/Pasted%20image%2020240205222148.png)
+![](attachments/Pasted%20image%2020240214221429.png)
 
 # 参考链接
 
