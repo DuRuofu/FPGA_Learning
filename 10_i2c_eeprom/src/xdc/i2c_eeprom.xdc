@@ -1,0 +1,13 @@
+set_property IOSTANDARD LVCMOS15 [get_ports key_rd]
+set_property IOSTANDARD LVCMOS15 [get_ports key_wr]
+set_property IOSTANDARD LVCMOS15 [get_ports sys_clk]
+set_property IOSTANDARD LVCMOS15 [get_ports sys_rst_n]
+set_property IOSTANDARD LVCMOS33 [get_ports tx]
+set_property PACKAGE_PIN R4 [get_ports sys_clk]
+set_property PACKAGE_PIN T4 [get_ports key_rd]
+set_property PACKAGE_PIN T3 [get_ports key_wr]
+set_property PACKAGE_PIN U7 [get_ports sys_rst_n]
+set_property PACKAGE_PIN D17 [get_ports tx]
+
+set_property IOSTANDARD LVCMOS15 [get_ports beep]
+set_property PACKAGE_PIN V7 [get_ports beep]
