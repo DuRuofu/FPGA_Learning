@@ -24,7 +24,7 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
         //key_flag_wr <= 0;
     end 
 	else if(key_flag_wr == 1'b1) begin
-		data <= 8'd31;
+		data <= 8'd65;
 		tx_wr_en <= 1'b1;
 	end
 	else begin
