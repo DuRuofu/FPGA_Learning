@@ -325,9 +325,9 @@ assign sda_en = ((state == RD_DATA) || (state == ACK_1) || (state == ACK_2)|| (s
 always @(*) begin
     case(state)
     ACK_1, ACK_2, ACK_3, ACK_4, ACK_5: begin
-        if(cnt_i2c_clk == 2'd0) 
+        if(cnt_i2c_clk == 2'd0)
             ack = sda_in;
-        else 
+        else
             ack = ack;
     end
     default: ack = 1'b0;
@@ -337,6 +337,7 @@ end
 // SDA 输入
 assign sda_in = i2c_sda;
 
+// 数据接收寄存器
 always @(*) begin
     case(state)
         IDLE: begin
