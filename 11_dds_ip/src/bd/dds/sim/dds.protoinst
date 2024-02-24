@@ -1,0 +1,27 @@
+{
+	"version": "1.0",
+	"modules": {
+		"dds": {
+			"proto_instances": {
+				"/dds_compiler_0/M_AXIS_DATA": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "aclk"},
+						"TDATA": { "actual": "m_axis_data_tdata"},
+						"TREADY": { "actual": "m_axis_data_tready"},
+						"TVALID": { "actual": "m_axis_data_tvalid"}
+					}
+				},
+				"/dds_compiler_0/M_AXIS_PHASE": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"ACLK": { "actual": "aclk"},
+						"TDATA": { "actual": "m_axis_phase_tdata"},
+						"TREADY": { "actual": "m_axis_phase_tready"},
+						"TVALID": { "actual": "m_axis_phase_tvalid"}
+					}
+				}
+			}
+		}
+	}
+}
